@@ -79,3 +79,72 @@ from track
 where album_id in (
 	select album_id from album where artist_id in (select artist_id from artist where name = 'Queen')
 );
+
+-- Practice updating Rows
+
+-- 1.
+update customer
+set fax = null
+where fax is not null;
+
+-- 2.
+update customer
+set company = 'Self'
+where company is null;
+
+-- 3.
+update customer
+set last_name = 'Thompson'
+where first_name = 'Julia' and last_name = 'Barnett';
+
+-- 4.
+update customer
+set support_rep_id = 4
+where email = 'luisrojas@yahoo.cl';
+
+-- 5.
+update track
+set composer = 'The darkness around us'
+where composer is null and 
+			genre_id = (select genre_id from genre where name = 'Metal');
+
+
+-- Group by
+
+-- 1.
+select count(*), genre.name
+from track
+join genre on track.genre_id = genre.genre_id
+group by genre.name;
+
+-- 2.
+select count(*), genre.name
+from track
+join genre on genre.genre_id = track.genre_id
+where genre.name = 'Pop' or genre.name = 'Rock'
+group by genre.name;
+
+-- 3.
+select count(*), artist.name
+from album
+join artist on artist.artist_id = album.artist_id
+group by artist.name;
+
+
+-- Use Distinct
+
+-- 1.select distinct composer
+from track;
+
+-- 2.
+select distinct billing_postal_code
+from invoice;
+
+-- 3.
+select distinct company
+from customer;
+
+
+-- Delete Rows
+
+-- 1.
